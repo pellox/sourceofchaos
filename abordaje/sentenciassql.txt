@@ -1,0 +1,19 @@
+getindices=select * from indice where terminado=0
+init_indices=update indice set terminado = 0
+finish_indices=update indice set terminado=1 where id=?
+finish_series=update series set terminado=1 where id=?
+finish_temporadas=update temporadas set terminado=1 where id=?
+finish_capitulos=update capitulos set terminado=1 where id=?
+existe_serie= select * from series where pagina = ? 
+insert_serie= insert into series (nombre, url,pagina) values (?,?,?)
+existe_temporada= select * from temporadas where idserie=? and numero = ? 
+existe_fichero=select * from fichero where url = ?
+existe_capitulo= select * from capitulos where url = ? 
+insert_temporada= insert into temporadas (idserie, nombre, numero) values (?,?,?)
+insert_capitulo= insert into capitulos (idtemporada, numero, titulo, fecha, url) values (?,?,?,?,?)
+insert_fichero=insert into fichero (idcapitulo, url, servidor, audio, subtitulos, calidad, formato, autor) values (?,?,?,?,?,?,?,?)
+update_fichero=update fichero set urlfinal=? where id=?
+init_series=update series set terminado = 0
+init_temporadas=update temporadas set terminado = 0 where id=?
+init_capitulo=update capitulos set terminado = 0 where id=?
+init_fichero=update fichero set terminado = 0 where id=?
