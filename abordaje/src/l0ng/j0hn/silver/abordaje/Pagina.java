@@ -30,8 +30,9 @@ public final class Pagina {
 		BufferedReader in;
 		String contenidoHtml = "";
 		try {
-		       URL oracle = new URL("http","192.168.16.2",80,url);
-		       //URL oracle = new URL(url);
+				// with proxy
+		       //URL oracle = new URL("http","192.168.16.2",80,url);
+		       URL oracle = new URL(url);
         yc = oracle.openConnection();
         in = new BufferedReader(
                                 new InputStreamReader(
