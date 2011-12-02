@@ -28,6 +28,10 @@
 	<echo message="Ok, compilado, vamos a ejecutar: " />
 	<!-- ejecuta el m?todo main dentro de la clase java -->
 	<java classname="l0ng.j0hn.silver.abordaje.Abordaje">
+	<!--	ant -Dmode=1 -Dserie=hola  -->
+	<arg line="${mode}" />
+	<arg line="${serie}" />
+	<arg line="${proxy}" />
 	<classpath path="${build.src}"/>
 	<classpath refid="project.classpath"/>
 	</java>

@@ -23,7 +23,11 @@ import java.net.*;
 */
 public final class Pagina {
 	
-	
+	/**
+	* descargarHtml
+	* @param String url
+	* @return String
+	*/
 	public static String descargarHtml (String url)
 	{
 		URLConnection yc;
@@ -52,6 +56,37 @@ public final class Pagina {
 
 	}
 	
+	/**
+	* descargarHtml
+	* @param String url
+	* @return String
+	*/
+	public static String descargarHtmlPorProxy (String url)
+	{
+		URLConnection yc;
+		BufferedReader in;
+		String contenidoHtml = "";
+		Proxy proxy = ProxyServers.getNext();
+		try {
+				// with proxy
+		  URL conexion = new URL("http",proxy.getHost(),proxy.getPort(),url);        yc = conexion.openConnection();
+        in = new BufferedReader(
+                                new InputStreamReader(
+                                yc.getInputStream()));
+        String inputLine;
 
+        while ((inputLine = in.readLine()) != null) 
+            contenidoHtml += inputLine;
+            Log.write("-Pagina> OK por proxy "+ proxy.getHost() + ": " + url);
+        in.close();
+    } catch (Exception e)
+    {
+	    System.out.println("No se pudo conectar: "+ proxy.getHost() +":"+ proxy.getPort() + e.getMessage());
+	    proxy.markAsBad();
+	    return "";
+	}
+		return contenidoHtml;
+
+	}
 
 }

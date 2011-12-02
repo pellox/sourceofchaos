@@ -37,7 +37,7 @@ public class Log {
       String message =  "<Log date=\"" + new Date().toString() +"\">"+msg+"</Log>";
 	 	
       System.out.println(message);
-      
+      /*
       try {
       	// Escribimos (append) en el fichero log
         pw = new PrintWriter(new FileOutputStream(logfile, true));
@@ -46,7 +46,7 @@ public class Log {
       } catch (IOException ioe) {
         System.err.println("Error al escrbir en log: "+ioe.getMessage());
         return false;
-      }
+      }*/
 	return true;
     
 

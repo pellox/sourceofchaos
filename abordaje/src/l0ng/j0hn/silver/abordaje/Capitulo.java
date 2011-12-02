@@ -71,7 +71,7 @@ public class Capitulo extends Recurso {
 	* @param String index
 	* @return Vector
 	*/
-	public Enumeration getFicheros () {
+	public Vector getFicheros () {
 	
 		Vector resultado = new Vector();
 		List<Fichero> ficheros = null;
@@ -89,6 +89,15 @@ public class Capitulo extends Recurso {
 	    }
     	
 		
-		return resultado.elements();
+		return resultado;
+	}
+	
+		/**
+	* initCapituloSerie
+	* inicia una Capitulo de 0
+	* @param int
+	*/
+	public void initCapituloSerie (int idTemporada) {
+		capituloDB.initCapituloSerie(idTemporada);
 	}
 }

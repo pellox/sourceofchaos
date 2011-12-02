@@ -84,4 +84,24 @@ public class CapituloDB extends RecursoDB {
 		Log.write(_finish + " ," + args[0].toString());
 		ds.setData(_finish,args);
 	}
+	
+	
+	/**
+	* initCapituloSerie
+	* inicia una Capitulo de 0
+	* @param int
+	*/
+	public void initCapituloSerie (int idTemporada) {
+		/*DataService ds = new DataService("");
+		ds.connect("");
+		
+		ds.setData(_finish, args);
+		*/
+		Data datos = new Data();
+		DataService ds = new DataService("");
+		ds.connect("");
+		
+		Log.write("Borrando Capitulo anterior de temporada: " + idTemporada);
+		ds.setData("init_capitulos_serie", new Object[]{idTemporada});
+	}
 }

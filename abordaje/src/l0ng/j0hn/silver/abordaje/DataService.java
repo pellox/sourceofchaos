@@ -349,7 +349,7 @@ public class DataService {
 		    Log.write("<DataService/> Command: "+command.toString());
 
 			// Preparamos a
-			pstmn = _DATA_CONNECTION.prepareStatement(command); //,Statement.RETURN_GENERATED_KEYS
+			pstmn = _DATA_CONNECTION.prepareStatement(command,Statement.RETURN_GENERATED_KEYS); //
 
 			// En caso de pasar argumentos, hay que cargarlos.
 			if (!(args == null || args.length == 0)) {

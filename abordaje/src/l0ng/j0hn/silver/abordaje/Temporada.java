@@ -53,8 +53,8 @@ public class Temporada extends Recurso {
 	}
 
 
-	public Enumeration getCapitulos () {
-		return Collections.enumeration(_capitulos);
+	public ArrayList getCapitulos () {
+		return _capitulos;
 	}
 	
 	/**
@@ -65,6 +65,15 @@ public class Temporada extends Recurso {
 		return _idtemporada;
 	}
 	
+	
+	/**
+	* initTemporadaSerie
+	* inicia una temporada de 0
+	* @param int
+	*/
+	public void initTemporadaSerie (int idSerie) {
+		temporadaDB.initTemporadaSerie(idSerie);
+	}
 	
 	
 }

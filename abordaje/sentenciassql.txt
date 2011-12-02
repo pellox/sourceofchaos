@@ -1,4 +1,11 @@
 getindices=select * from indice where terminado=0
+vaciar_capitulos=TRUNCATE table capitulos
+vaciar_ficheros=TRUNCATE table fichero
+vaciar_series=TRUNCATE table series
+vaciar_temporadas=TRUNCATE table temporadas
+init_temporadas_serie=delete from temporadas where idserie=?
+init_capitulos_serie=delete from capitulos where idtemporada=?
+init_ficheros_serie=delete from fichero where idcapitulo=?
 init_indices=update indice set terminado = 0
 finish_indices=update indice set terminado=1 where id=?
 finish_series=update series set terminado=1 where id=?
@@ -12,6 +19,12 @@ existe_capitulo= select * from capitulos where url = ?
 insert_temporada= insert into temporadas (idserie, nombre, numero) values (?,?,?)
 insert_capitulo= insert into capitulos (idtemporada, numero, titulo, fecha, url) values (?,?,?,?,?)
 insert_fichero=insert into fichero (idcapitulo, url, servidor, audio, subtitulos, calidad, formato, autor) values (?,?,?,?,?,?,?,?)
+insert_proxy=insert into proxies (host, port) values (?,?)
+delete_proxies=delete from proxies
+select_proxies=select id,host,port from proxies where ok=1
+proxy_used=update proxies set en_uso=1 where id=?
+proxy_free=update proxies set en_uso=0 where id=?
+bad_proxy=update proxies set ok=0 where id=?
 update_fichero=update fichero set urlfinal=? where id=?
 init_series=update series set terminado = 0
 init_temporadas=update temporadas set terminado = 0 where id=?

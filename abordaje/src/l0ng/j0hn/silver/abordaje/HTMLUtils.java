@@ -200,9 +200,13 @@ public class HTMLUtils {
 	*/
   public static String extractFinalLink(String pref, String url, int idfichero) throws IOException {
    String result = "";
-	 
+	 ProxyFreeSurfProxy pp = new ProxyFreeSurfProxy();
     //Document doc = Jsoup.connect(url).userAgent(UserAgent.getUserAgent()).get();
+    //OK: 
+    //Document doc = Jsoup.parse(Pagina.descargarHtmlPorProxy(url));
     Document doc = Jsoup.parse(Pagina.descargarHtml(url));
+
+    //Document doc = Jsoup.parse(pp.getPage(url));
     Element enlace = doc.select("table.episodes.full-width  a").first();
 	
     result =  enlace.attr("href");
@@ -214,12 +218,39 @@ public class HTMLUtils {
     return result;
   }
   
-/*
-  public final static void main(String[] args) throws Exception{
-    String site = "http://www.theparticle.com/midi/doommidi.html";
-    List<String> links = HTMLUtils.extractLinks(site);
-    for (String link : links) {
-      System.out.println(link);
+  	/**
+	* extractChapterFiles
+	* extrae los enlaces de ficheros de determinado capítulo
+	* @param String url
+	* @param int idcapitulo
+	*
+	* @return List<Enlace>
+	*/
+  public static List<Proxy> extractProxies(String url) throws IOException {
+    final ArrayList<Proxy> result = new ArrayList<Proxy>();
+    Element proxyHost = null;
+    Element proxyPort = null;
+	try {
+	     Document doc = Jsoup.parse(Pagina.descargarHtml(url));
+	
+
+    Elements ficheros = doc.select("tr.row0,tr.row1");
+
+    // href ...
+    for (Element fichero : ficheros) {
+	            	Log.write("oh yes");
+
+        	proxyHost = fichero.select("td + td").first();
+        	proxyPort = fichero.select("td + td + td").first();
+        	Log.write("|[nuevo Proxy]--" + proxyHost.text() +":"+proxyPort.text());
+
+      	result.add(new Proxy(proxyHost.text(),Integer.parseInt(proxyPort.text())));
+      	      	
     }
-  }*/
+
+	} catch (Exception ioex) {
+		Log.write("Error al sacar datos: " + ioex.getMessage());
+	}
+    return result;
+  }
 }

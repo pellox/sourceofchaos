@@ -80,6 +80,21 @@ public class FicheroDB extends RecursoDB {
 		ds.setData(_finish,args);
 	}
 	
+		/**
+	* initFicheroSerie
+	* inicia una Fichero de 0
+	* @param int
+	*/
+	public void initFicheroSerie (int idCapitulo) {
+
+		Data datos = new Data();
+		DataService ds = new DataService("");
+		ds.connect("");
+		
+		Log.write("Borrando Fichero anterior de capítulo: " + idCapitulo);
+		ds.setData("init_ficheros_serie", new Object[]{idCapitulo});
+	}
+	
 	/**
 	* updateFichero
 	*

@@ -6,7 +6,9 @@
 package l0ng.j0hn.silver.abordaje;
 
 import java.util.Random;
-
+import java.util.Vector;
+import java.util.List;
+import java.io.IOException;
 /**
  * Ofrece los métodos necesarios para proveer proxies aleatorios
  *
@@ -15,30 +17,66 @@ import java.util.Random;
  */
 public class Proxy {
 
-	//Nombre del fichero de propiedades
-	private static final String proxyes[] = {"127.0.0.1","127.0.0.1","127.0.0.1","127.0.0.1","127.0.0.1"};
-	private static final int ports[] = {9666,9666,9666,9666,9666};
-    private String _currentHost;
-    private int _currentPort;
+   private String _currentHost;
+   private int _currentPort;
+   private int _inUse;
+   private int _id;
+   private ProxyDB proxyDB = new ProxyDB();
     
 	/**
 	* init
 	* Inicializa los proxies a utilizar
 	*/
-	public Proxy () {
+	public Proxy (String host, int port) {
+		_currentHost = host;
+		_currentPort = port;
+		_inUse = 0;
+		_id = proxyDB.insert(host, port);
 	}
 	
 	/**
-	* getProxy
-	* Devuelve un proxy aleatorio
-	* @return String
+	* init
+	* Inicializa los proxies a utilizar
 	*/
-	public void getProxy() {
-		Random aleatorio = new Random();
-		int selected = aleatorio.nextInt((proxyes.length-1));
-		_currentHost = proxyes[selected];
-		_currentPort = ports[selected];
+	public Proxy (String host, int port, int id) {
+		_currentHost = host;
+		_currentPort = port;
+		_inUse = 0;
+		_id = id;
+	}
+
+	/**
+	* markAsBad
+	* 
+	*/
+	public void markAsBad() {
+		proxyDB.markBad(_id);
+	}
 		
+	/**
+	* markAsUsed
+	* 
+	*/
+	public void markAsUsed() {
+		_inUse = 1;
+		proxyDB.markUsed(_id, 1);
+	}
+
+	/**
+	* freeProxy
+	* 
+	*/
+	public void freeProxy() {
+		_inUse = 0;
+		proxyDB.markUsed(_id, 0);
+	}
+	
+	/**
+	* isInUse
+	* @return boolean
+	*/
+	public boolean isInUse() {
+		return (_inUse == 1);
 	}
 	
 	/**
@@ -55,6 +93,14 @@ public class Proxy {
 	*/
 	public int getPort () {
 		return _currentPort;
+	}
+	
+	/**
+	* getId
+	* @return id
+	*/
+	public int getId () {
+		return _id;
 	}
 
 }

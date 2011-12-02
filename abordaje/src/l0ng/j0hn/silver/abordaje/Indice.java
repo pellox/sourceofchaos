@@ -38,11 +38,10 @@ public class Indice extends Recurso {
 	* @param String index
 	* @return Vector
 	*/
-	public Enumeration getSeries (String index) {
+	public Vector getSeries (String index) {
 	
 		Vector resultado = new Vector();
-		List<Enlace> links = null;
-		List<Enlace> tmpLinks = null;
+		List<Enlace> links = null;
 		
 		int pagina = 100;		
 		String site = Propiedades.getPropiedad("urlseries")+index.toUpperCase();
@@ -53,16 +52,18 @@ public class Indice extends Recurso {
 			do {
 	    		links = HTMLUtils.extractLinksFiltered(site+"/"+pagina,Propiedades.getPropiedad("filterseries")+index);
 	    		resultado.addAll(links);
-	    		//Log.write(links.toString());
+   	
 	    		pagina += 100;
 			}	while (!links.isEmpty());
-			
+
     	} catch (IOException ioe) {
     		Log.write("Parece que no hay más links: " + ioe.getMessage());
     	}
     	
-		
-		return resultado.elements();
+		if (resultado == null) {
+			Log.write("------------------------------------------------: ES NULO NEN");
+		}
+		return resultado;
 	}
 	
 	/**
@@ -71,11 +72,30 @@ public class Indice extends Recurso {
 	* @param Object[] args
 	*/
 	public void finished (Object[] args) {
+
+		indiceDB.finished(args);
+	}
+	
+		/**
+	* init
+	* Marca todas las tarea como no finalizadas
+	*/
+	public void init () {
+
+		indiceDB.init();
+	}
+
+	/**
+	* vaciar
+  * vacia todas las tablas para empezar de 0
+	*/
+	public void vaciar () {
 		/*DataService ds = new DataService("");
 		ds.connect("");
 		
 		ds.setData(_finish, args);
 		*/
-		indiceDB.finished(args);
-	}
+		indiceDB.truncate();
+	}	
+	
 }

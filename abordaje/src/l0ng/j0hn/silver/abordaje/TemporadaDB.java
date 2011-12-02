@@ -50,6 +50,24 @@ public class TemporadaDB extends RecursoDB {
 		ds.setData(_finish,args);
 	}
 	
+	/**
+	* initTemporadaSerie
+	* inicia una temporada de 0
+	* @param int
+	*/
+	public void initTemporadaSerie (int idSerie) {
+		/*DataService ds = new DataService("");
+		ds.connect("");
+		
+		ds.setData(_finish, args);
+		*/
+		Data datos = new Data();
+		DataService ds = new DataService("");
+		ds.connect("");
+		
+		Log.write("Borrando temporada anterior de serie: " + idSerie);
+		ds.setData("init_temporadas_serie", new Object[]{idSerie});
+	}
 	
 	/**
 	* existe

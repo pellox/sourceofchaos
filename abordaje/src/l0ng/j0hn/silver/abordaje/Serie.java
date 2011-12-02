@@ -52,12 +52,23 @@ public class Serie extends Recurso {
 
 
 	/**
+	* Serie
+	* @param String nombre
+	*/
+	public Serie (String nombre) {
+		
+		idserie = serieDB.existe(nombre);
+		if (idserie!=0 ) {
+			pagina = nombre;
+		}
+	}
+	/**
 	* getTemporadas
 	* Saca las temporadas dado una serie
 	* @param String index
 	* @return Vector
 	*/
-	public Enumeration getTemporadas () {
+	public Vector getTemporadas () {
 	
 		Vector resultado = new Vector();
 		List<Temporada> temporadas = null;
@@ -71,7 +82,9 @@ public class Serie extends Recurso {
     	}
     	
 		
-		return resultado.elements();
+		return resultado;
 	}
+	
+
 	
 }

@@ -59,7 +59,7 @@ public class ConexionBD  {
 			//conConexion = dtsDataSource.getConnection();
 			conConexion = DriverManager.getConnection( Propiedades.getPropiedad("dburl"),Propiedades.getPropiedad("dbuser"), Propiedades.getPropiedad("dbpass"));
 			
-			Log.write("<ConexionBD/>Conectado a BD, DS: "+sNombreDs);
+			//Log.write("<ConexionBD/>Conectado a BD, DS: "+sNombreDs);
 		}catch (Exception e) {
 			e.printStackTrace();
 			conConexion = null;			
@@ -92,7 +92,7 @@ public class ConexionBD  {
 		String catalog = getCatalog(conConexion);
 		try {
 			conConexion.close();
-			Log.write("<ConexionBD/>Conexion a BD "+catalog+" cerrada.");
+			//Log.write("<ConexionBD/>Conexion a BD "+catalog+" cerrada.");
 		} catch (SQLException e) {
 			e.printStackTrace();			
 			Log.write("<ConexionBD/>No se pudo CERRAR conexion, error: "+e.getMessage());

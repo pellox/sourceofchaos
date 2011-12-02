@@ -63,4 +63,32 @@ public class IndiceDB extends RecursoDB {
 		Log.write(_finish + " ," + args[0].toString());
 		ds.setData(_finish,args);
 	}
+	
+	/**
+	* init
+	* MArcar como no procesado todo
+	*/
+	public void init () {
+
+		Data datos = new Data();
+		DataService ds = new DataService("");
+		ds.connect("");
+		
+		Log.write("Inicializando indices como no procesados... ");
+		ds.setData("init_indices",null);
+	}
+	
+	/**
+	* truncate
+	* vacia todas las tablas menos el índice
+	*/
+	public void truncate() {
+		Data datos = new Data();
+		DataService ds = new DataService("");
+		ds.connect("");
+		ds.setData("vaciar_capitulos", null);
+		ds.setData("vaciar_series", null);
+		ds.setData("vaciar_temporadas", null);
+		ds.setData("vaciar_ficheros", null);
+	}
 }

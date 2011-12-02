@@ -102,5 +102,13 @@ public class Fichero extends Recurso {
 		return resultado;
 	}
 	
+		/**
+	* initFicheroSerie
+	* inicia una Fichero de 0
+	* @param int
+	*/
+	public void initFicheroSerie (int idCapitulo) {
+		ficheroDB.initFicheroSerie(idCapitulo);
+	}
 
 }
