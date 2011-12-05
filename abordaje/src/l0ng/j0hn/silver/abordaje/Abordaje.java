@@ -91,7 +91,7 @@ public class Abordaje {
 					capitulos = temporada.getCapitulos();		
 					
 					for  (Capitulo capitulo : capitulos) {
-						capitulo.insertar(temporada.getId());
+						//capitulo.insertar(temporada.getId());
 						ficheros = capitulo.getFicheros().elements();
 						
 						while (ficheros.hasMoreElements()) {
@@ -206,14 +206,15 @@ public class Abordaje {
 					
 					while (eTemporadas.hasMoreElements()) {
 						temporada = (Temporada)eTemporadas.nextElement();
+						Log.write("temporada: " + temporada.getId());
 						capitulos.addAll(temporada.getCapitulos());	
 						eCapitulos = capitulos.elements();
-
+				
 						while (eCapitulos.hasMoreElements()) {
 							capitulo = (Capitulo)eCapitulos.nextElement();
-							capitulo.insertar(temporada.getId());
 							ficheros.addAll(capitulo.getFicheros());
-					}				
+						}
+										
 				 }
 					
 	

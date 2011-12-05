@@ -21,6 +21,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.CallableStatement;
 import java.util.StringTokenizer;
 
@@ -303,6 +304,16 @@ public class DataService {
 		
      	PreparedStatement pStmSQL= createCommand(command,args);
      	result = pStmSQL.executeUpdate();
+     	
+     	// Retorna el primer ID
+     	ResultSet rs = pStmSQL.getGeneratedKeys();
+		if (rs.next()) {
+   	 ResultSetMetaData rsmd = rs.getMetaData();
+       result =  rs.getInt(1);
+      } else {
+			return 0;
+		}
+
 		//pStmSQL.close(); //Cierra el PreparedStatement
       	Log.write("<DataService/>setData ejecutado con exito");     	
 
@@ -334,8 +345,8 @@ public class DataService {
 			StringTokenizer st = new StringTokenizer(command,"#");
 
 	try {
-	// Si se pasa un comando que empieza por "numeracionip", se trata de una query montada!!	
-	if (command.startsWith("numeracionip")) {
+	// Si se pasa un comando que empieza por "preparada", se trata de una query montada!!	
+	if (command.startsWith("preparada")) {
 		st.nextToken();
 		flagprepared = true;
 		command = st.nextToken();
@@ -346,7 +357,6 @@ public class DataService {
    		if (command==null || command.compareTo("")==0) 
 	    	Log.write("<DataService/> Error al crear comando: "+command+" .Probablemente no se encontro la sentencia en el fichero SQL o el propio fichero SQL");
 	
-		    Log.write("<DataService/> Command: "+command.toString());
 
 			// Preparamos a
 			pstmn = _DATA_CONNECTION.prepareStatement(command,Statement.RETURN_GENERATED_KEYS); //
@@ -369,6 +379,8 @@ public class DataService {
 					}
 				}
 			}
+		   
+		   Log.write("<DataService/> Command: "+pstmn.toString());
      // Se devulve un objeto prepared statement
     	return pstmn;
    } catch (SQLException sqle) {

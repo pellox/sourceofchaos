@@ -43,26 +43,27 @@ public class Capitulo extends Recurso {
 	* @param String fecha
 	* @param String url
 	*/
-	public Capitulo (String numero, String nombre, String fecha ,String url) {
+	public Capitulo (int idtemporada, String numero, String nombre, String fecha ,String url) {
 		_numero = numero;
 		_nombre = nombre;
 		_fecha = fecha;
 		_url = url;
+		_idtemporada = idtemporada;
 
+		_idcapitulo = capituloDB.existe(url);
+		if (_idcapitulo==0 ) {
+			_idcapitulo = insertar();
+		}		
 		//Log.write(_numero+"> "+_nombre+"> "+_fecha+"> "+_url);
 	}
 
 	/**
 	* insertar
-	* @param int idtemporada
+	* @return int idtemporada
 	*
 	*/
-	public void insertar (int idtemporada) {
-		_idcapitulo = capituloDB.existe(_url);
-		
-		if (_idcapitulo == 0) {
-			_idcapitulo = capituloDB.insert(idtemporada, _numero, _nombre, _fecha, _url);
-		}
+	public int insertar () {
+			return capituloDB.insert(_idtemporada, _numero, _nombre, _fecha, _url);
 	}
 	
 	/**

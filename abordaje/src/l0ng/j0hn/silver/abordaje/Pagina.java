@@ -88,5 +88,41 @@ public final class Pagina {
 		return contenidoHtml;
 
 	}
+	
+	
+		/**
+	* qualityCheck
+	* @param String host
+	* @param int port
+	* @return boolean
+	*/
+	public static boolean qualityCheck (String host, int port)
+	{
+		URLConnection yc;
+		BufferedReader in;
+		String contenidoHtml = "";
+		Proxy proxy = ProxyServers.getNext();
+		String url = Propiedades.getPropiedad("urlsy");
+		try {
+				// with proxy
+		  URL conexion = new URL("http",host,port,url);        yc = conexion.openConnection();
+        in = new BufferedReader(
+                                new InputStreamReader(
+                                yc.getInputStream()));
+        String inputLine;
+
+        while ((inputLine = in.readLine()) != null) 
+            contenidoHtml += inputLine;
+            Log.write("-Pagina> OK por proxy "+ proxy.getHost() + ": " + url);
+        in.close();
+    } catch (Exception e)
+    {
+	    System.out.println("No se pudo conectar: "+ proxy.getHost() +":"+ proxy.getPort() + e.getMessage());
+	    proxy.markAsBad();
+	    return "";
+	}
+		return contenidoHtml;
+
+	}
 
 }

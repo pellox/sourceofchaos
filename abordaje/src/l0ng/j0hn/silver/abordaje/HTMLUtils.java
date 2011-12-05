@@ -91,6 +91,7 @@ public class HTMLUtils {
 	*/
   public static List<Temporada> extractSeasons(String url, int idserie) throws IOException {
     final ArrayList<Temporada> result = new ArrayList<Temporada>();
+    Temporada tmpTemporada = null;
 	 ArrayList<Capitulo> capitulosTemporada = null;
 	 
     //Document doc = Jsoup.parse(Pagina.descargarHtml(url));
@@ -117,6 +118,8 @@ public class HTMLUtils {
 
       	nameElement = doc.select("h3#"+seasons.attr("id")+" > strong").first();
       	capitulos = doc.select("h3#"+seasons.attr("id")+" + table > tbody > tr");
+      	tmpTemporada = new Temporada(nameElement.text(),season,idserie);
+
       	capitulosTemporada = new ArrayList<Capitulo>();
       	      		
       	for (Element capitulo : capitulos) {
@@ -124,10 +127,11 @@ public class HTMLUtils {
        		numeroCapitulo = capitulo.select("td.episode-title  strong").first();
       		fechaCapitulo = capitulo.select("td.episode-title + td").first();
       		urlCapitulo = capitulo.select("td.episode-title > a").first();
-      		capitulosTemporada.add(new Capitulo(numeroCapitulo.text(), nombreCapitulo.text(), fechaCapitulo.text(), urlCapitulo.attr("href")));
+      		capitulosTemporada.add(new Capitulo(tmpTemporada.getId(),numeroCapitulo.text(), nombreCapitulo.text(), fechaCapitulo.text(), urlCapitulo.attr("href")));
       	}
-      	result.add(new Temporada(nameElement.text(),season,idserie,capitulosTemporada));
-      	      	
+      	
+      	tmpTemporada.setCapitulos(capitulosTemporada);
+      	result.add(tmpTemporada);     	
     }
 
     return result;
@@ -203,8 +207,8 @@ public class HTMLUtils {
 	 ProxyFreeSurfProxy pp = new ProxyFreeSurfProxy();
     //Document doc = Jsoup.connect(url).userAgent(UserAgent.getUserAgent()).get();
     //OK: 
-    //Document doc = Jsoup.parse(Pagina.descargarHtmlPorProxy(url));
-    Document doc = Jsoup.parse(Pagina.descargarHtml(url));
+    Document doc = Jsoup.parse(Pagina.descargarHtmlPorProxy(url));
+    //Document doc = Jsoup.parse(Pagina.descargarHtml(url));
 
     //Document doc = Jsoup.parse(pp.getPage(url));
     Element enlace = doc.select("table.episodes.full-width  a").first();

@@ -37,4 +37,16 @@
 	</java>
 </target>
 
+ <target name="help"    description="Muestra ayuda">
+  <exec executable="ant">
+   <arg value="-p"/>
+  </exec>
+    <echo>Modos de ejecución:</echo>
+    <echo>1. Secuencialmente y total: ant </echo>
+    <echo>2. Recursivo y total: ant -Dmode=1 </echo>
+    <echo>3. Solo una serie: ant -Dmode=2 -Dserie=dead-set -Dproxy=0</echo>
+    <echo>3. Solo una serie renovando proxies: ant -Dmode=2 -Dserie=dead-set -Dproxy=1</echo>
+ </target>
+
+
 </project>

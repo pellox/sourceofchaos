@@ -37,13 +37,12 @@ public class Temporada extends Recurso {
 	* Temporada
 	* @param String nombre
 	* @param String numero
-	* @param int capitulos
+	* @param int serie
 	*/
-	public Temporada (String nombre, String numero, int serie, ArrayList capitulos) {
+	public Temporada (String nombre, String numero, int serie) {
 		_nombre = nombre;
 		_numero = numero;
 		_serie = serie;
-		_capitulos = capitulos;
 		
 		_idtemporada = temporadaDB.existe(_serie, _numero);
 		if (_idtemporada==0 ) {
@@ -52,11 +51,21 @@ public class Temporada extends Recurso {
 		
 	}
 
-
+	/**
+	* getCapitulos
+	* @return ArrayList
+	*/
 	public ArrayList getCapitulos () {
 		return _capitulos;
 	}
 	
+	/**
+	* setCapitulos
+	* @param ArrayList capitulos
+	*/
+	public void setCapitulos (ArrayList capitulos) {
+		 _capitulos = capitulos;
+	}
 	/**
 	* getId
 	* @return int
