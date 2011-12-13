@@ -60,6 +60,9 @@ public class Serie extends Recurso {
 		idserie = serieDB.existe(nombre);
 		if (idserie!=0 ) {
 			pagina = nombre;
+		} else {
+			idserie = serieDB.insert(nombre, nombre, nombre);
+			pagina = nombre;
 		}
 	}
 	/**

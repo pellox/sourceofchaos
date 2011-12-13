@@ -129,8 +129,14 @@ public class Abordaje {
 		Vector series = new Vector();
 		Enumeration eSeries = null;
 		Vector temporadas = new Vector();
-		Enumeration capitulos = null;
-		Enumeration ficheros = null;
+
+//		Enumeration ficheros = null;
+		 
+		Enumeration eTemporadas = null;
+		Vector capitulos = new Vector();
+		Enumeration eCapitulos = null;
+		Vector ficheros = new Vector();
+		Enumeration eFicheros = null;
 		
 		indices.init();
 		
@@ -151,22 +157,35 @@ public class Abordaje {
 		//				temporada = (Temporada)temporadas.nextElement();
 		//				capitulos = temporada.getCapitulos();		
 		//	}
-	}	
-				
-
-					
-		/*while (capitulos.hasMoreElements()) {
-						capitulo = (Capitulo)capitulos.nextElement();
-						capitulo.insertar(temporada.getId());
-						ficheros = capitulo.getFicheros();
-		}				
 		
-		while (ficheros.hasMoreElements()) {
-							fichero = (Fichero)ficheros.nextElement();
+					temporadas.addAll(serie.getTemporadas());
+					eTemporadas = temporadas.elements();
+					
+					while (eTemporadas.hasMoreElements()) {
+						temporada = (Temporada)eTemporadas.nextElement();
+						Log.write("temporada: " + temporada.getId());
+						capitulos.addAll(temporada.getCapitulos());	
+						eCapitulos = capitulos.elements();
+				
+						while (eCapitulos.hasMoreElements()) {
+							capitulo = (Capitulo)eCapitulos.nextElement();
+							ficheros.addAll(capitulo.getFicheros());
+						}
+										
+				 }
+					
+	}
+						
+/*					eFicheros = ficheros.elements();
+					
+					while (eFicheros.hasMoreElements()) {
+							fichero = (Fichero)eFicheros.nextElement();
 							Log.write("---------------------GET "+fichero.getFinalUrl()+"--------------------");
 							
-		}	*/
-						//indice.finished(new Object[]{indices.elementAt(i).toString()});
+					}*/	
+						//indice.finished(new Object[]{indices.elementAt(i).toString()});			
+	
+				
 		
 	}	
 	
@@ -221,11 +240,11 @@ public class Abordaje {
 						
 					eFicheros = ficheros.elements();
 					
-					while (eFicheros.hasMoreElements()) {
+					/*while (eFicheros.hasMoreElements()) {
 							fichero = (Fichero)eFicheros.nextElement();
 							Log.write("---------------------GET "+fichero.getFinalUrl()+"--------------------");
 							
-					}	
+					}	*/
 						//indice.finished(new Object[]{indices.elementAt(i).toString()});			
 				}	else {
 					Log.write("Serie no encontrada...");

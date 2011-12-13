@@ -204,7 +204,7 @@ public class HTMLUtils {
 	*/
   public static String extractFinalLink(String pref, String url, int idfichero) throws IOException {
    String result = "";
-	 ProxyFreeSurfProxy pp = new ProxyFreeSurfProxy();
+
     //Document doc = Jsoup.connect(url).userAgent(UserAgent.getUserAgent()).get();
     //OK: 
     Document doc = Jsoup.parse(Pagina.descargarHtmlPorProxy(url));
@@ -248,8 +248,12 @@ public class HTMLUtils {
         	proxyPort = fichero.select("td + td + td").first();
         	Log.write("|[nuevo Proxy]--" + proxyHost.text() +":"+proxyPort.text());
 
-      	result.add(new Proxy(proxyHost.text(),Integer.parseInt(proxyPort.text())));
-      	      	
+			//if (Pagina.qualityCheck(proxyHost.text(),Integer.parseInt(proxyPort.text()))) {
+        		//Log.write("[Quality Check OK] " + proxyHost.text() +":"+proxyPort.text());
+      		result.add(new Proxy(proxyHost.text(),Integer.parseInt(proxyPort.text())));
+      	//} else {
+      		//Log.write("Quality Check incorrecto! proxy descartado : " + proxyHost.text() +":"+proxyPort.text());
+      	//}
     }
 
 	} catch (Exception ioex) {
@@ -257,4 +261,29 @@ public class HTMLUtils {
 	}
     return result;
   }
+  
+    	/**
+	* qualityCheck
+	* dice si la petición devuelve lo que se esperaba
+	* @param String content
+	*
+	* @return booelan
+	*/
+  public static boolean qualityCheck(String content) throws IOException {
+	
+	try {
+	     Document doc = Jsoup.parse(content);
+	
+
+    Element titulo = doc.select("title").first();
+    
+    return titulo.text().equals("  Series Yonkis - Descarga de series y ver online series  ");
+
+ 
+	} catch (Exception ioex) {
+		Log.write("Error al: " + ioex.getMessage());
+		return false;
+	}
+  }
+
 }

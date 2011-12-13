@@ -102,7 +102,8 @@ public class ProxyServers {
 		
 		for (int i=0;i<proxies.size();i++) {
 			p = (Vector)proxies.elementAt(i);
-			proxyServers.add(new Proxy((String)p.elementAt(1),Integer.parseInt(p.elementAt(0).toString()),Integer.parseInt(p.elementAt(2).toString()) ));
+
+				proxyServers.add(new Proxy((String)p.elementAt(1),Integer.parseInt(p.elementAt(0).toString()),Integer.parseInt(p.elementAt(2).toString()) ));
 		}
 	}
 

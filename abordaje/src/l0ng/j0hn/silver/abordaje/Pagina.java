@@ -101,7 +101,6 @@ public final class Pagina {
 		URLConnection yc;
 		BufferedReader in;
 		String contenidoHtml = "";
-		Proxy proxy = ProxyServers.getNext();
 		String url = Propiedades.getPropiedad("urlsy");
 		try {
 				// with proxy
@@ -113,15 +112,16 @@ public final class Pagina {
 
         while ((inputLine = in.readLine()) != null) 
             contenidoHtml += inputLine;
-            Log.write("-Pagina> OK por proxy "+ proxy.getHost() + ": " + url);
+            Log.write("Quality Check por proxy "+ host + ": " + url + "... ");
         in.close();
+        return HTMLUtils.qualityCheck(contenidoHtml);
+        
     } catch (Exception e)
     {
-	    System.out.println("No se pudo conectar: "+ proxy.getHost() +":"+ proxy.getPort() + e.getMessage());
-	    proxy.markAsBad();
-	    return "";
+	    System.out.println("Quality Check > No se pudo conectar: "+ host +":"+ port + e.getMessage());
+
+	    return false;
 	}
-		return contenidoHtml;
 
 	}
 
