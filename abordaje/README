@@ -1,8 +1,0 @@
-<h1>Otro crawler para Series Yonkis...</h1>
-
-Para compilarlo se ha utilizado jdk7 y ant.
-Necesitas un gestor Mysql para almacenar los datos.
-
-Este crawler almacena la información en una BBDD mysql.
-Para extraer los links utiliza la librería jsoup.
-
